@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Captions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Layout: quiet product studio page, with the actual Captions workflow shown as one crisp app-window preview. */
+  :root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --surface-2: #eff3f8;
+    --fg: #16223a;
+    --muted: #607087;
+    --line: #dce3ec;
+    --accent: #08b9ad;
+    --accent-ink: #007a73;
+    --blue: #314f8e;
+    --preview-sidebar: #f1f4f8;
+    --button-text: #082e34;
+    --display: "Manrope", "Avenir Next", sans-serif;
+    --body: "DM Sans", "Avenir Next", sans-serif;
+    --mono: "DM Mono", "SFMono-Regular", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #111925;
+      --surface: #192435;
+      --surface-2: #223147;
+      --fg: #edf3fb;
+      --muted: #afbdd0;
+      --line: #35455c;
+      --accent: #38d2c3;
+      --accent-ink: #76f3e5;
+      --blue: #a9bdf2;
+      --preview-sidebar: #202d40;
+      --button-text: #082e34;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #111925;
+    --surface: #192435;
+    --surface-2: #223147;
+    --fg: #edf3fb;
+    --muted: #afbdd0;
+    --line: #35455c;
+    --accent: #38d2c3;
+    --accent-ink: #76f3e5;
+    --blue: #a9bdf2;
+    --preview-sidebar: #202d40;
+    --button-text: #082e34;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    padding-block: 0 28px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    background: var(--bg);
+    color: var(--fg);
+    font: 400 16px/1.6 var(--body);
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+  img { display: block; max-width: 100%; }
+  h1, h2, h3, p { margin: 0; }
+  .wrap { width: min(1080px, 100%); margin-inline: auto; }
+  .mono, .eyebrow, .micro, .track-label, .preview-meta { font-family: var(--mono); }
+  .header { display: flex; justify-content: space-between; align-items: center; gap: 20px; min-height: 72px; border-bottom: 1px solid var(--line); }
+  .brand { display: inline-flex; align-items: center; gap: 9px; font: 800 .98rem var(--display); letter-spacing: -.045em; text-decoration: none; }
+  .brand img { width: 30px; height: 30px; border-radius: 8px; }
+  .nav { display: flex; align-items: center; gap: clamp(17px, 3vw, 32px); color: var(--muted); font-size: .83rem; }
+  .nav a { text-decoration: none; }
+  .nav a:hover { color: var(--fg); }
+  .nav .nav-download { color: var(--fg); font-weight: 700; }
+  .nav .nav-download span { padding-left: 5px; color: var(--accent-ink); }
+
+  .hero { display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); gap: clamp(36px, 6vw, 74px); align-items: center; padding-block: clamp(60px, 8vw, 98px) clamp(74px, 10vw, 116px); }
+  .hero-copy { min-width: 0; }
+  .eyebrow { display: flex; align-items: center; gap: 9px; color: var(--accent-ink); font-size: .66rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  h1 { max-width: 520px; margin-top: 20px; font: 700 clamp(3.2rem, 6vw, 5.1rem)/1.02 var(--display); letter-spacing: -.075em; text-wrap: balance; }
+  h1 span { color: var(--blue); }
+  .hero-copy > p { max-width: 435px; margin-top: 22px; color: var(--muted); font-size: 1rem; line-height: 1.75; }
+  .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 15px 20px; margin-top: 27px; }
+  .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 48px; padding: 0 17px; border: 1px solid var(--accent); border-radius: 6px; background: var(--accent); color: var(--button-text); font-size: .84rem; font-weight: 700; text-decoration: none; transition: filter .15s ease; }
+  .button:hover { filter: brightness(.96); }
+  .button svg { width: 17px; height: 17px; }
+  .file-note { color: var(--muted); font: 400 .64rem var(--mono); }
+  .compat { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; color: var(--muted); font: 400 .64rem var(--mono); }
+  .compat span + span::before { content: "·"; margin-right: 18px; color: var(--accent-ink); }
+
+  .app-window { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); box-shadow: 0 18px 48px color-mix(in srgb, var(--fg) 9%, transparent); }
+  .window-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 43px; padding-inline: 14px; border-bottom: 1px solid var(--line); }
+  .window-controls { display: flex; gap: 5px; }
+  .window-controls i { display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+  .window-name { color: var(--muted); font-size: .68rem; font-weight: 600; }
+  .window-mark { width: 17px; height: 17px; border-radius: 5px; }
+  .app-body { display: grid; grid-template-columns: minmax(130px, .36fr) minmax(0, .64fr); min-height: 300px; }
+  .app-sidebar { min-width: 0; padding: 17px 13px; border-right: 1px solid var(--line); background: var(--preview-sidebar); }
+  .micro { color: var(--muted); font-size: .52rem; letter-spacing: .05em; text-transform: uppercase; }
+  .input-device { margin-top: 8px; padding: 8px 9px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); font-size: .63rem; font-weight: 600; }
+  .sidebar-section { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 21px; color: var(--fg); font-size: .65rem; font-weight: 700; }
+  .sidebar-section span:last-child { color: var(--muted); font: 400 .57rem var(--mono); }
+  .channel { display: flex; align-items: center; gap: 7px; min-width: 0; margin-top: 9px; padding: 8px 7px; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); font-size: .61rem; }
+  .channel.current { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+  .channel-dot { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: var(--blue); }
+  .channel:nth-of-type(4) .channel-dot { background: var(--accent); }
+  .channel span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .start-button { margin-top: 18px; padding: 8px; border-radius: 4px; background: var(--accent); color: var(--button-text); text-align: center; font-size: .62rem; font-weight: 700; }
+  .app-transcript { min-width: 0; padding: 17px 16px; }
+  .transcript-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-bottom: 13px; border-bottom: 1px solid var(--line); }
+  .transcript-head strong { font-size: .7rem; }
+  .recording { display: inline-flex; align-items: center; gap: 5px; color: var(--accent-ink); font: 400 .54rem var(--mono); }
+  .wave { display: flex; align-items: center; justify-content: space-between; gap: 3px; height: 39px; margin-block: 8px 13px; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .wave i { display: block; width: 3px; min-width: 2px; border-radius: 3px; background: var(--blue); opacity: .75; }
+  .wave i:nth-child(5n+1) { background: var(--accent); }
+  .utterance { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 8px; padding-block: 9px; border-bottom: 1px solid var(--line); }
+  .track-label { padding-top: 3px; color: var(--blue); font-size: .52rem; }
+  .utterance:nth-of-type(2) .track-label { color: var(--accent-ink); }
+  .utterance p { min-width: 0; font-size: clamp(.68rem, .95vw, .78rem); line-height: 1.65; }
+  .utterance mark { padding: 1px 3px; background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent-ink); font-weight: 700; }
+  .utterance.pending p { color: var(--muted); }
+  .preview-meta { display: flex; justify-content: space-between; gap: 8px; margin-top: 12px; color: var(--muted); font-size: .5rem; }
+
+  .section { border-top: 1px solid var(--line); padding-block: clamp(45px, 6vw, 66px); }
+  .section-heading { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 30px; align-items: end; margin-bottom: 30px; }
+  .section-heading .eyebrow { margin-bottom: 10px; }
+  h2 { font: 700 clamp(2rem, 3.6vw, 3.1rem)/1.08 var(--display); letter-spacing: -.06em; text-wrap: balance; }
+  .section-heading > p { max-width: 440px; justify-self: end; color: var(--muted); font-size: .9rem; }
+  .features { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); }
+  .feature { min-width: 0; padding: 19px 20px 21px 0; border-bottom: 1px solid var(--line); }
+  .feature:nth-child(3n+2), .feature:nth-child(3n) { padding-left: 20px; border-left: 1px solid var(--line); }
+  .feature h3 { font: 700 .92rem var(--display); letter-spacing: -.025em; }
+  .feature p { max-width: 300px; margin-top: 6px; color: var(--muted); font-size: .77rem; line-height: 1.65; }
+
+  .download { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 25px; align-items: center; margin-top: 25px; padding-block: clamp(32px, 5vw, 54px); border-top: 2px solid var(--blue); border-bottom: 1px solid var(--line); }
+  .download h2 { max-width: 560px; }
+  .download p { margin-top: 9px; color: var(--muted); font-size: .8rem; }
+  .download .button { white-space: nowrap; }
+  .notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 23px; padding-block: 22px 43px; }
+  .notes section { min-width: 0; }
+  .notes h3 { font-size: .7rem; font-weight: 700; }
+  .notes p { margin-top: 5px; color: var(--muted); font-size: .68rem; line-height: 1.65; }
+  footer { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 13px 22px; padding-block: 17px; border-top: 1px solid var(--line); color: var(--muted); font-size: .7rem; }
+  footer .brand { color: var(--fg); font-size: .82rem; }
+  footer .brand img { width: 25px; height: 25px; }
+  footer .support { overflow-wrap: anywhere; }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: minmax(0, 1fr); gap: 42px; }
+    .hero-copy > p { max-width: 560px; }
+    .app-window { width: min(590px, 100%); justify-self: center; }
+    .section-heading { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .section-heading > p { justify-self: start; }
+  }
+  @media (max-width: 540px) {
+    .header { min-height: 62px; }
+    .nav { gap: 14px; font-size: .73rem; }
+    .nav a:first-child { display: none; }
+    .hero { gap: 34px; padding-block: 49px 60px; }
+    h1 { font-size: clamp(3rem, 13vw, 4.2rem); }
+    .hero-actions { align-items: stretch; flex-direction: column; gap: 10px; }
+    .hero-actions .button { width: 100%; }
+    .file-note { text-align: center; }
+    .compat { gap: 7px 10px; font-size: .57rem; }
+    .compat span + span::before { margin-right: 10px; }
+    .app-body { grid-template-columns: minmax(110px, .38fr) minmax(0, .62fr); min-height: 275px; }
+    .app-sidebar { padding: 13px 9px; }
+    .app-transcript { padding: 13px 10px; }
+    .utterance { grid-template-columns: 47px minmax(0, 1fr); gap: 5px; }
+    .preview-meta { font-size: .43rem; }
+    .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .feature { padding: 15px 12px 17px 0; }
+    .feature:nth-child(3n+2), .feature:nth-child(3n) { padding-left: 0; border-left: 0; }
+    .feature:nth-child(even) { padding-left: 13px; border-left: 1px solid var(--line); }
+    .download { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .download .button { width: 100%; white-space: normal; }
+    .notes { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  }
+  @media (max-width: 380px) {
+    .app-body { grid-template-columns: minmax(95px, .37fr) minmax(0, .63fr); }
+    .window-bar { padding-inline: 10px; }
+    .channel { gap: 5px; padding-inline: 5px; font-size: .55rem; }
+    .utterance p { font-size: .65rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  }
+</style>
+<main class="wrap">
+  <header class="header">
+    <a class="brand" href="#inicio" aria-label="Captions, início"><img src="assets/captions-icon.png" alt=""><span>Captions</span></a>
+    <nav class="nav" aria-label="Navegação principal">
+      <a href="#recursos">Recursos</a>
+      <a href="#download">Compatibilidade</a>
+      <a class="nav-download" href="#download">Baixar app <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <section class="hero" id="inicio" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="dot" aria-hidden="true"></span> Transcrição ao vivo para Mac</div>
+      <h1 id="hero-title">Ouça a conversa.<br><span>Leia cada canal.</span></h1>
+      <p>Captions transforma áudio da sua interface em texto ao vivo, separado por canal. Destaque palavras importantes e exporte a conversa quando terminar.</p>
+      <div class="hero-actions">
+        <a class="button" href="downloads/Captions-1.0-macOS-Apple-Silicon.dmg" aria-label="Baixar Captions 1.0 para Mac Apple Silicon">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M5 17v3h14v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Baixar Captions
+        </a>
+        <span class="file-note">DMG · v1.0 · Apple Silicon</span>
+      </div>
+      <div class="compat" aria-label="Compatibilidade"><span>macOS 26+</span><span>Até 8 canais</span><span>Processamento local</span></div>
+    </div>
+
+    <div class="app-window" aria-label="Prévia ilustrativa da interface do Captions">
+      <div class="window-bar">
+        <span class="window-controls" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="window-name">Captions</span>
+        <img class="window-mark" src="assets/captions-icon.png" alt="">
+      </div>
+      <div class="app-body">
+        <aside class="app-sidebar" aria-label="Seleção de canais">
+          <span class="micro">Entrada de áudio</span>
+          <div class="input-device">Interface de áudio</div>
+          <div class="sidebar-section"><span>Canais</span><span>2 ativos</span></div>
+          <div class="channel current"><span class="channel-dot"></span><span>Canal 01</span></div>
+          <div class="channel"><span class="channel-dot"></span><span>Canal 02</span></div>
+          <div class="start-button">Parar transcrição</div>
+        </aside>
+        <div class="app-transcript">
+          <div class="transcript-head"><strong>Conversa</strong><span class="recording"><span class="dot"></span> AO VIVO</span></div>
+          <div class="wave" aria-hidden="true"><i style="height:18%"></i><i style="height:35%"></i><i style="height:56%"></i><i style="height:31%"></i><i style="height:66%"></i><i style="height:45%"></i><i style="height:82%"></i><i style="height:34%"></i><i style="height:58%"></i><i style="height:91%"></i><i style="height:54%"></i><i style="height:27%"></i><i style="height:74%"></i><i style="height:40%"></i><i style="height:86%"></i><i style="height:34%"></i><i style="height:63%"></i><i style="height:100%"></i><i style="height:48%"></i><i style="height:29%"></i><i style="height:69%"></i><i style="height:44%"></i><i style="height:80%"></i><i style="height:34%"></i><i style="height:58%"></i><i style="height:93%"></i><i style="height:39%"></i><i style="height:67%"></i><i style="height:29%"></i><i style="height:53%"></i><i style="height:76%"></i><i style="height:24%"></i><i style="height:49%"></i><i style="height:65%"></i><i style="height:34%"></i><i style="height:87%"></i><i style="height:46%"></i><i style="height:27%"></i><i style="height:60%"></i><i style="height:37%"></i></div>
+          <div class="utterance"><span class="track-label">Canal 01</span><p>A reunião começa daqui a <mark>cinco minutos</mark>.</p></div>
+          <div class="utterance"><span class="track-label">Canal 02</span><p>Entendido. Vou avisar a equipe e preparar a sala.</p></div>
+          <div class="utterance pending"><span class="track-label">Canal 01</span><p>O áudio está chegando bem por aqui…</p></div>
+          <div class="preview-meta"><span>PORTUGUÊS (BR)</span><span>PROCESSAMENTO NO MAC</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="recursos" aria-labelledby="features-title">
+    <div class="section-heading">
+      <div><div class="eyebrow">O essencial para acompanhar fala ao vivo</div><h2 id="features-title">Feito para seguir<br>o fio da conversa.</h2></div>
+      <p>Escolha os canais da interface, acompanhe a transcrição enquanto ela acontece e ajuste o espaço de trabalho ao seu jeito.</p>
+    </div>
+    <div class="features">
+      <article class="feature"><h3>Até oito canais</h3><p>Selecione os canais de áudio e acompanhe cada um separadamente.</p></article>
+      <article class="feature"><h3>Transcrição em tempo real</h3><p>Leia o texto conforme a fala é reconhecida e ajuste o tamanho da fonte.</p></article>
+      <article class="feature"><h3>Palavras em destaque</h3><p>Cadastre termos importantes e veja quando aparecem na conversa.</p></article>
+      <article class="feature"><h3>Cinco idiomas</h3><p>Português (Brasil), inglês (EUA), espanhol, italiano e francês.</p></article>
+      <article class="feature"><h3>Exportação em texto</h3><p>Salve a conversa transcrita em um arquivo simples.</p></article>
+      <article class="feature"><h3>Processamento local</h3><p>Áudio e transcrição são processados no Mac. O modelo é baixado no primeiro uso.</p></article>
+    </div>
+  </section>
+
+  <section class="download" id="download" aria-labelledby="download-title">
+    <div><div class="eyebrow">Captions 1.0 · Para Mac</div><h2 id="download-title">Pronto para acompanhar.</h2><p>Apple Silicon · Requer macOS 26 ou superior para transcrição multicanal.</p></div>
+    <a class="button" href="downloads/Captions-1.0-macOS-Apple-Silicon.dmg">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v12m0 0 4.5-4.5M12 15l-4.5-4.5M5 17v3h14v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Baixar instalador DMG
+    </a>
+  </section>
+  <div class="notes" aria-label="Informações importantes">
+    <section><h3>Instalação</h3><p>Abra o DMG e arraste Captions para Aplicativos. Esta versão não é notarizada pela Apple; o macOS pode exibir um aviso na primeira abertura.</p></section>
+    <section><h3>Idiomas e sistema</h3><p>A transcrição multicanal requer macOS 26 ou superior. O suporte a cada idioma depende da disponibilidade no macOS.</p></section>
+    <section><h3>Licença e conexão</h3><p>A ativação e as renovações periódicas precisam de internet. Após instalar o modelo de fala, a transcrição é processada localmente.</p></section>
+  </div>
+  <footer>
+    <a class="brand" href="#inicio"><img src="assets/captions-icon.png" alt=""><span>Captions</span></a>
+    <span>Transcrição ao vivo para Mac.</span>
+    <span class="support">Suporte: renato@renatobortone.com.br</span>
+  </footer>
+</main>
+</body>
+</html>

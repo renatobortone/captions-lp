@@ -98,6 +98,14 @@
   .compat { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; color: var(--muted); font: 400 .64rem var(--mono); }
   .compat span + span::before { content: "·"; margin-right: 18px; color: var(--accent-ink); }
 
+  .app-preview { position: relative; min-width: 0; }
+  .trial-badge { position: absolute; z-index: 1; top: -30px; right: -23px; display: grid; align-content: center; justify-items: center; gap: 5px; width: 158px; height: 158px; border: 6px solid var(--bg); border-radius: 50%; background: #ffd43b; color: #211b08; text-align: center; text-decoration: none; transform: rotate(8deg); box-shadow: 0 11px 30px color-mix(in srgb, #211b08 32%, transparent); transition: transform .18s ease, filter .18s ease; }
+  .trial-badge::before { position: absolute; inset: 6px; border: 1px dashed color-mix(in srgb, #211b08 48%, transparent); border-radius: 50%; content: ""; }
+  .trial-badge:hover { transform: rotate(0) scale(1.07); filter: brightness(1.04); }
+  .trial-badge:focus-visible { outline-offset: 2px; }
+  .trial-badge span { position: relative; font: 800 .66rem/1.15 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+  .trial-badge strong { position: relative; font: 800 1.48rem/.98 var(--display); letter-spacing: -.05em; }
+  .trial-badge .badge-note { font-size: .57rem; letter-spacing: .04em; }
   .app-window { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); box-shadow: 0 18px 48px color-mix(in srgb, var(--fg) 9%, transparent); }
   .window-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 43px; padding-inline: 14px; border-bottom: 1px solid var(--line); }
   .window-controls { display: flex; gap: 5px; }
@@ -142,6 +150,11 @@
   .feature h3 { font: 700 .92rem var(--display); letter-spacing: -.025em; }
   .feature p { max-width: 300px; margin-top: 6px; color: var(--muted); font-size: .77rem; line-height: 1.65; }
 
+  .connectivity { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 30px; align-items: center; padding-block: clamp(38px, 5vw, 56px); border-top: 1px solid var(--line); }
+  .connectivity h2 { max-width: 560px; }
+  .connectivity p { max-width: 600px; margin-top: 10px; color: var(--muted); font-size: .86rem; }
+  .connection-types { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 9px; max-width: 390px; padding: 0; margin: 0; list-style: none; }
+  .connection-types li { padding: 9px 14px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); color: var(--fg); font: 500 .7rem var(--mono); letter-spacing: .04em; }
   .trial { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 25px; align-items: center; margin-top: 8px; padding-block: clamp(30px, 4vw, 44px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .trial h2 { max-width: 620px; }
   .trial p { max-width: 650px; margin-top: 9px; color: var(--muted); font-size: .84rem; }
@@ -162,9 +175,15 @@
   @media (max-width: 760px) {
     .hero { grid-template-columns: minmax(0, 1fr); gap: 42px; }
     .hero-copy > p { max-width: 560px; }
-    .app-window { width: min(590px, 100%); justify-self: center; }
+    .app-preview { width: min(590px, 100%); justify-self: center; }
+    .trial-badge { top: -22px; right: -7px; width: 132px; height: 132px; }
+    .trial-badge strong { font-size: 1.25rem; }
+    .trial-badge span { font-size: .56rem; }
+    .trial-badge .badge-note { font-size: .49rem; }
     .section-heading { grid-template-columns: minmax(0, 1fr); gap: 12px; }
     .section-heading > p { justify-self: start; }
+    .connectivity { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+    .connection-types { justify-content: flex-start; max-width: none; }
   }
   @media (max-width: 540px) {
     .header { min-height: 62px; }
@@ -226,6 +245,10 @@
       <div class="compat" aria-label="Compatibilidade"><span>macOS 26+</span><span>Até 8 canais</span><span>Feito para shows ao vivo</span></div>
     </div>
 
+    <div class="app-preview">
+      <a class="trial-badge" href="#avaliacao" aria-label="Promoção Black Friday: saiba como experimentar o Captions por 15 dias">
+        <span>Black Friday</span><strong>15 dias</strong><span class="badge-note">para experimentar</span>
+      </a>
     <div class="app-window" aria-label="Prévia ilustrativa da interface do Captions">
       <div class="window-bar">
         <span class="window-controls" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -254,6 +277,7 @@
         </div>
       </div>
     </div>
+    </div>
   </section>
 
   <section class="section" id="recursos" aria-labelledby="features-title">
@@ -271,9 +295,14 @@
     </div>
   </section>
 
+  <section class="connectivity" id="conectividade" aria-labelledby="connectivity-title">
+    <div><div class="eyebrow">Conectividade</div><h2 id="connectivity-title">Sua interface. Seu fluxo de trabalho.</h2><p>Captions funciona com interfaces de áudio compatíveis com o Mac, incluindo soluções USB, Dante, SoundGrid e MADI. Use a infraestrutura de áudio do seu evento e acompanhe a comunicação em canais separados.</p></div>
+    <ul class="connection-types" aria-label="Tecnologias de áudio compatíveis"><li>USB</li><li>Dante</li><li>SoundGrid</li><li>MADI</li></ul>
+  </section>
+
   <section class="trial" id="avaliacao" aria-labelledby="trial-title">
-    <div><div class="eyebrow">Conheça o Captions na prática</div><h2 id="trial-title">Experimente por 30 dias.</h2><p>Quer testar o Captions no seu evento? Envie uma mensagem direta no Instagram para <strong>@renatobortone</strong> com a palavra <strong>Captions</strong>. Eu respondo com uma licença de avaliação válida por 30 dias.</p></div>
-    <a class="button" href="https://www.instagram.com/renatobortone/" target="_blank" rel="noopener noreferrer" aria-label="Enviar mensagem no Instagram para solicitar avaliação de 30 dias">
+    <div><div class="eyebrow">Conheça o Captions na prática</div><h2 id="trial-title">Experimente por 15 dias.</h2><p>Quer testar o Captions no seu evento? Envie uma mensagem direta no Instagram para <strong>@renatobortone</strong> com a palavra <strong>Captions</strong>. Eu respondo com uma licença de avaliação válida por 15 dias.</p></div>
+    <a class="button" href="https://www.instagram.com/renatobortone/" target="_blank" rel="noopener noreferrer" aria-label="Enviar mensagem no Instagram para solicitar avaliação de 15 dias">
       Solicitar avaliação no Instagram <span aria-hidden="true">↗</span>
     </a>
   </section>

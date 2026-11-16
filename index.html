@@ -142,6 +142,10 @@
   .feature h3 { font: 700 .92rem var(--display); letter-spacing: -.025em; }
   .feature p { max-width: 300px; margin-top: 6px; color: var(--muted); font-size: .77rem; line-height: 1.65; }
 
+  .trial { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 25px; align-items: center; margin-top: 8px; padding-block: clamp(30px, 4vw, 44px); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .trial h2 { max-width: 620px; }
+  .trial p { max-width: 650px; margin-top: 9px; color: var(--muted); font-size: .84rem; }
+  .trial .button { white-space: nowrap; }
   .download { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 25px; align-items: center; margin-top: 25px; padding-block: clamp(32px, 5vw, 54px); border-top: 2px solid var(--blue); border-bottom: 1px solid var(--line); }
   .download h2 { max-width: 560px; }
   .download p { margin-top: 9px; color: var(--muted); font-size: .8rem; }
@@ -182,8 +186,8 @@
     .feature { padding: 15px 12px 17px 0; }
     .feature:nth-child(3n+2), .feature:nth-child(3n) { padding-left: 0; border-left: 0; }
     .feature:nth-child(even) { padding-left: 13px; border-left: 1px solid var(--line); }
-    .download { grid-template-columns: minmax(0, 1fr); gap: 18px; }
-    .download .button { width: 100%; white-space: normal; }
+    .trial, .download { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .trial .button, .download .button { width: 100%; white-space: normal; }
     .notes { grid-template-columns: minmax(0, 1fr); gap: 14px; }
   }
   @media (max-width: 380px) {
@@ -265,6 +269,13 @@
       <article class="feature"><h3>Até oito canais</h3><p>Organize as fontes de áudio do evento em canais separados para acompanhar cada conversa.</p></article>
       <article class="feature"><h3>Transcrição ao vivo</h3><p>Acompanhe a comunicação conforme acontece e exporte o registro em texto ao final.</p></article>
     </div>
+  </section>
+
+  <section class="trial" id="avaliacao" aria-labelledby="trial-title">
+    <div><div class="eyebrow">Conheça o Captions na prática</div><h2 id="trial-title">Experimente por 30 dias.</h2><p>Quer testar o Captions no seu evento? Envie uma mensagem direta no Instagram para <strong>@renatobortone</strong> com a palavra <strong>Captions</strong>. Eu respondo com uma licença de avaliação válida por 30 dias.</p></div>
+    <a class="button" href="https://www.instagram.com/renatobortone/" target="_blank" rel="noopener noreferrer" aria-label="Enviar mensagem no Instagram para solicitar avaliação de 30 dias">
+      Solicitar avaliação no Instagram <span aria-hidden="true">↗</span>
+    </a>
   </section>
 
   <section class="download" id="download" aria-labelledby="download-title">
